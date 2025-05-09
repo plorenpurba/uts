@@ -1,36 +1,53 @@
 <?php
-include"koneksi.php";
+session_start();
+include "koneksi.php";
 
-// Yang nanganin
-if ($_SERVER['REQUEST_METHOD'] == "POST"){
-    
+// pake session untuk keranjang
+if (!isset($_SESSION['keranjang'])) {
+    $_SESSION['keranjang'] = [];
 }
-if ($_SERVER['REQUEST_METHOD'] == "GET"){
-    $hapus = isset($_GET['hapus']) ? $_GET['hapus'] : false;
-    if ($hapus !== false){
-        $db->delete($hapus);
-        header('Location: '. $_SERVER['SCRIPT_NAME']);
-        exit;
+
+// form untuk menambah bahan lewat sesiion
+if ($_SERVER['REQUEST_METHOD'] == "POST") {
+    $bahanTerpilih = isset($_POST['bahan']) ? $_POST['bahan'] : [];
+    // untuk porsi nilai defaultnya 1 
+    $porsi = isset($_POST['porsi']) ? $_POST['porsi'] : 1;
+    foreach ($bahanTerpilih as $id) {
+        $bahan = $db->tampilBahanId($id); 
+        // cek kalo bahan itu ada ?
+        if ($bahan) {
+            // ambil harga dan nama dari id nya
+            if (isset($_SESSION['keranjang'][$id])) {
+                $_SESSION['keranjang'][$id]['porsi'] += $porsi;
+            } else {
+                $_SESSION['keranjang'][$id] = [
+                    'nama' => $bahan['nama'],
+                    'harga' => $bahan['harga'],
+                    'porsi' => $porsi
+                ];
+            }
+        }
     }
+    header("Location: keranjang.php");
+    exit;
 }
-
 $listBahan = $db->tampilBahan();
 ?>
-
-<?php if(!empty($listBahan)): ?>
-    <h2>Daftar Bahan Jamu </h2>
+<h2>Daftar dan pesan jamu</h2>
+<form method="post" action="">
+    <label>Jumlah Porsi: <input type="number" name="porsi" value="1" min="1" required></label>
     <ul>
-    <?php foreach($listBahan as $t): ?>
-        <li>Nama : <?= $t['nama']; ?> </li>
-        <li>Jenis : <?= $t['jenis']; ?> </li>
-        <li>Deskrpisi : <?= $t['deskripsi']; ?> </li>
-        <li>Harga : Rp.<?= $t['harga']; ?> </li>
-        <a href="?hapus=<?= $t['id']; ?>">Hapus</a> 
-        | <a href="update.php?ubah=<?= $t['id'] ?>">Ubah</a> 
-        | <a href="tampil.php?tampil=<?= $t['id'] ?>">Lihat</a></li>
-        <hr>
-    <?php endforeach; ?>
-
+        <?php foreach ($listBahan as $t): ?>
+            <li>
+                <input type="checkbox" name="bahan[]"value="<?= $t['id']; ?>">
+                <p style="display:inline" >Nama : <?= $t['nama'] ?></p>
+                <p>Jenis : <?= $t['jenis'] ?></p>
+                <p>Deskripsi : <?= $t['deskripsi'] ?></p>
+                <p>Harga : Rp.<?= $t['harga'] ?></p>
+            </li>
+        <?php endforeach; ?>
     </ul>
-    <?php endif; ?>
+    <button type="submit">Tambahkan ke Keranjang</button>
+</form>
 
+<a href="keranjang.php">Lihat Keranjang</a>
