@@ -6,12 +6,12 @@ class Database{
          $sql = "INSERT INTO bahan (nama, deskripsi, harga, jenis) VALUES('$nama','$deskripsi','$harga','$jenis')";
          $conn->exec($sql);
      }
-     function showTugas (){
+     function tampilBahan(){
          global $conn;
          $sql = $conn->query("SELECT * FROM bahan");
          return $sql->fetchAll(PDO::FETCH_ASSOC);
      }
-     function showTugasDariId ($id){
+     function tampilBahanId ($id){
          global $conn;
          if(!$id){
              header('Location: /');
@@ -31,7 +31,7 @@ class Database{
          $conn->exec($sql);
      }
      
-     function updateTugas($id, $nama, $deskripsi, $harga, $jenis){
+     function updateBahan($id, $nama, $deskripsi, $harga, $jenis){
          global $conn;
          if (empty($deskripsi) || empty($nama) || empty($harga) || empty($jenis)) {
              header('Location: /'); 
