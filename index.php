@@ -2,21 +2,19 @@
 session_start();
 include "koneksi.php";
 
-// pake session untuk keranjang
 if (!isset($_SESSION['keranjang'])) {
     $_SESSION['keranjang'] = [];
+
 }
 
-// form untuk menambah bahan lewat sesiion
 if ($_SERVER['REQUEST_METHOD'] == "POST") {
-    $bahanTerpilih = isset($_POST['bahan']) ? $_POST['bahan'] : [];
-    // untuk porsi nilai defaultnya 1 
-    $porsi = isset($_POST['porsi']) ? $_POST['porsi'] : 1;
+    $bahanTerpilih = $_POST['bahan'] ?? [];
+    $porsi = $_POST['porsi'] ?? 1;
+
     foreach ($bahanTerpilih as $id) {
-        $bahan = $db->tampilBahanId($id); 
-        // cek kalo bahan itu ada ?
+        $bahan = $db->tampilBahanId($id);
         if ($bahan) {
-            // ambil harga dan nama dari id nya
+            
             if (isset($_SESSION['keranjang'][$id])) {
                 $_SESSION['keranjang'][$id]['porsi'] += $porsi;
             } else {
@@ -30,24 +28,52 @@ if ($_SERVER['REQUEST_METHOD'] == "POST") {
     }
     header("Location: keranjang.php");
     exit;
+
 }
+
 $listBahan = $db->tampilBahan();
+
 ?>
-<h2>Daftar dan pesan jamu</h2>
+
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Pesan Jamu</title>
+    <link rel="stylesheet" href="index.css">
+</head>
+<body>
+
+<h2 class="judul-halaman">Pesan Jamu</h2>
+
 <form method="post" action="">
-    <label>Jumlah Porsi: <input type="number" name="porsi" value="1" min="1" required></label>
-    <ul>
-        <?php foreach ($listBahan as $t): ?>
-            <li>
-                <input type="checkbox" name="bahan[]"value="<?= $t['id']; ?>">
-                <p style="display:inline" >Nama : <?= $t['nama'] ?></p>
-                <p>Jenis : <?= $t['jenis'] ?></p>
-                <p>Deskripsi : <?= $t['deskripsi'] ?></p>
-                <p>Harga : Rp.<?= $t['harga'] ?></p>
-            </li>
+    <div class="input-porsi">
+        <label for="porsi">Jumlah Porsi:</label>
+        <input type="number" name="porsi" id="porsi" value="1" min="1" required>
+    </div>
+
+    <div class="kartu-container">
+        <?php foreach ($listBahan as $b): ?>
+        <div class="kartu-bahan">
+            <label class="konten-kartu">
+                <input type="checkbox" name="bahan[]" value="<?= $b['id']; ?>">
+                <h3 class="nama-bahan"><?= htmlspecialchars($b['nama']) ?></h3>
+                <p class="jenis-bahan"><strong>Jenis:</strong> <?= $b['jenis'] ?></p>
+                <p class="deskripsi-bahan"><?= $b['deskripsi'] ?></p>
+                <p class="harga-bahan">Harga: Rp.<?= $b['harga'] ?></p>
+            </label>
+        </div>
         <?php endforeach; ?>
-    </ul>
-    <button type="submit">Tambahkan ke Keranjang</button>
+    </div>
+
+    <div class="aksi-form">
+        <button type="submit" class="tombol-submit">Tambahkan ke Keranjang</button>
+    </div>
 </form>
 
-<a href="keranjang.php">Lihat Keranjang</a>
+<div class="navigasi-bawah">
+    <a href="keranjang.php" class="tombol-keranjang">Lihat Keranjang</a>
+</div>
+
+</body>
+</html>
+

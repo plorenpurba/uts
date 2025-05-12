@@ -1,0 +1,96 @@
+body {
+    font-family: Arial, sans-serif;
+    background-color: #f6f6f6;
+    padding: 20px;
+    color: #333;
+}
+
+.judul-halaman {
+    text-align: center;
+    color: #000000;
+}
+
+.keranjang-container {
+    max-width: 800px;
+    margin: auto;
+}
+
+.item-keranjang {
+    background-color: #fff;
+    border-radius: 8px;
+    padding: 16px;
+    margin-bottom: 16px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.05);
+}
+
+.info-barang h3 {
+    margin: 0;
+}
+
+.aksi-barang a {
+    margin: 0 4px;
+    padding: 6px 10px;
+    border-radius: 4px;
+    background-color: #eee;
+    text-decoration: none;
+    color: #333;
+    font-weight: bold;
+}
+
+.aksi-barang .tambah {
+    background-color: blue;
+    color: white;
+}
+
+.aksi-barang .kurang {
+    background-color: orange;
+    color: white;
+}
+
+.aksi-barang .hapus {
+    background-color: red;
+    color: white;
+}
+
+.total-keranjang {
+    text-align: right;
+    font-size: 18px;
+    margin-top: 20px;
+}
+
+.aksi-pembayaran {
+    text-align: right;
+    margin-top: 10px;
+}
+
+.tombol-bayar {
+    padding: 10px 20px;
+    background-color: #303ef5;
+    color: white;
+    text-decoration: none;
+    border-radius: 5px;
+}
+
+.tombol-bayar:hover {
+    background-color: #1c136d;
+}
+
+.keranjang-kosong {
+    text-align: center;
+    font-size: 18px;
+    color: #888;
+}
+
+.navigasi-bawah {
+    margin-top: 30px;
+    text-align: center;
+}
+
+.tombol-kembali {
+    text-decoration: none;
+    color: #fc2525;
+    font-weight: bold;
+}

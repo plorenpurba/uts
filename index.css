@@ -1,0 +1,108 @@
+body {
+    font-family: 'Segoe UI', sans-serif;
+    background-color: #f8f9fa;
+    margin: 0;
+    padding: 20px;
+    color: #333;
+}
+
+.judul-halaman {
+    text-align: center;
+    color: #000000;
+    margin-bottom: 30px;
+}
+
+.input-porsi {
+    text-align: center;
+    margin-bottom: 20px;
+}
+
+.input-porsi input {
+    padding: 6px;
+    font-size: 16px;
+    width: 80px;
+}
+
+.kartu-container {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 20px;
+    justify-content: center;
+}
+
+.kartu-bahan {
+    background-color: white;
+    border-radius: 10px;
+    width: 260px;
+    box-shadow: 0 2px 10px rgba(0,0,0,0.05);
+    transition: transform 0.2s ease;
+}
+
+.kartu-bahan:hover {
+    transform: translateY(-5px);
+}
+
+.konten-kartu {
+    display: block;
+    padding: 20px;
+    text-decoration: none;
+    color: inherit;
+    cursor: pointer;
+}
+
+.konten-kartu input[type="checkbox"] {
+    margin-right: 10px;
+    transform: scale(1.2);
+}
+
+.nama-bahan {
+    margin: 10px 0 5px;
+    color: #2c3e50;
+}
+
+.jenis-bahan, .deskripsi-bahan, .harga-bahan {
+    font-size: 14px;
+    margin-bottom: 8px;
+}
+
+.harga-bahan {
+    font-weight: bold;
+    color: #fc4c17;
+}
+
+.aksi-form {
+    text-align: center;
+    margin-top: 30px;
+}
+
+.tombol-submit {
+    padding: 10px 30px;
+    background-color: #532dff;
+    color: white;
+    border: none;
+    font-size: 16px;
+    border-radius: 6px;
+    cursor: pointer;
+}
+
+.tombol-submit:hover {
+    background-color: #060472;
+}
+
+.navigasi-bawah {
+    text-align: center;
+    margin-top: 40px;
+}
+
+.tombol-keranjang {
+    text-decoration: none;
+    background-color: #2980b9;
+    color: white;
+    padding: 10px 20px;
+    border-radius: 6px;
+    font-weight: bold;
+}
+
+.tombol-keranjang:hover {
+    background-color: #2471a3;
+}

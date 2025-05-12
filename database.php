@@ -23,7 +23,7 @@ class Database{
              $sql->execute();
  
          }
-         return $sql->fetchAll(PDO::FETCH_ASSOC);
+         return $sql->fetch(PDO::FETCH_ASSOC);
      }
      function delete($d){
          global $conn;
