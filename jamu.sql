@@ -6,6 +6,18 @@ CREATE TABLE bahan (
   jenis TEXT NOT NULL
 );
 
+CREATE TABLE racikan(
+  id INTEGER PRIMARY KEY,
+  nama_racikan VARCHAR(100)
+);
+CREATE TABLE detail_racikan(
+  id INTEGER PRIMARY KEY,
+  racikan_id INTEGER NOT NULL,
+  bahan_id INTEGER NOT NULL,
+  FOREIGN KEY (bahan_id) REFERENCES bahan(id),
+  FOREIGN KEY (racikan_id) REFERENCES racikan(id)
+);
+
 INSERT INTO bahan (nama, jenis, deskripsi, harga) VALUES
 ('Kunyit','Bahan utama','Antioksidan, antiradang, meningkatkan sistem imun, meredakan nyeri haid',1500),
 ('Jahe','Bahan utama','Menghangatkan tubuh, meredakan nyeri otot, meningkatkan imun, mencegah mual',1200),
